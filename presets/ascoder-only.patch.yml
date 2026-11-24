@@ -1,0 +1,59 @@
+# dsh-ascoder · Ascoder 形态预设
+#
+# 用法：把本文件内容合并进你 profile 的 cordis.patch.yml
+#   ~/.dsh/profiles/<profile>/cordis.patch.yml
+# 然后重启该 profile。
+#
+# 作用：隐藏 Ascoder 用不到的 DSH **前端**能力，并把侧栏品牌让给 dsh-ascoder
+# 的浏览器半。想恢复某项能力：删掉对应 disabled 行即可。
+#
+# 三条已验证的约束（踩坑记录，别重犯）：
+# 1. 只能禁用**叶子**客户端插件。ui-sidebar-right（sidebarRight）、ui-commands
+#    （commandUi）、ui-file-drag（fileDrag）、ui-plugin-manager（settings-shell 的
+#    模块依赖）是基建，禁用会让 ui-chat / ui-model-selection / settings-shell
+#    连锁 pending 或 failed，整页变成 "Failed to load plugins"。
+# 2. 只能禁用**客户端**行；宿主侧服务行不能禁。工具行在 agent preset 的 include
+#    里各内嵌 4 份，profile patch 按 id 只能改到 1 份，结果是"服务没了、工具还在"，
+#    这些工具永久 pending，新建会话直接报 agent-preset/invalid。
+# 3. 不要用 ctx.locale.register 覆盖宿主文案：同命名空间+语言会直接抛错，
+#    注册早了还会把 ui-workspace 打挂（表现为 ui-workspace: failed）。
+
+# Ascoder 品牌：禁用官方侧栏品牌占用，改由 dsh-ascoder 的浏览器半注册 Ascoder 标记与名称
+- id: ui-brand-official
+  disabled: true
+
+# === Ascoder 形态：隐藏 Ascoder 用不到的 DSH 前端能力 ===
+# 右栏（终端/文件/浏览器/文档预览）与产出物
+- { id: ui-deliverables, disabled: true }
+- { id: ui-file-actions, disabled: true }
+- { id: ui-open-in-app, disabled: true }
+- { id: product-analytics, disabled: true }
+# 会话流里的 DSH 专属节点
+- { id: ui-plan, disabled: true }
+- { id: ui-trajectory, disabled: true }
+- { id: ui-jobs, disabled: true }
+- { id: ui-schedule, disabled: true }
+- { id: ui-goal, disabled: true }
+- { id: ui-workflow-run, disabled: true }
+- { id: ui-subagent, disabled: true }
+- { id: ui-skill, disabled: true }
+- { id: ui-cordis, disabled: true }
+- { id: ui-message-feedback, disabled: true }
+- { id: ui-reference, disabled: true }
+- { id: ui-agent-preset, disabled: true }
+# 设置里只保留 通用 / 模型 / 账号 + Ascoder 项目
+- { id: ui-settings-session-log, disabled: true }
+- { id: ui-settings-agent-loop, disabled: true }
+- { id: ui-settings-subagent, disabled: true }
+- { id: ui-settings-web-search, disabled: true }
+- { id: ui-shortcuts, disabled: true }
+- { id: entry-customization, disabled: true }
+# 依赖回填：这两个页面依赖已隐藏的轨迹/预设模块，一并隐藏
+- { id: ui-attachment, disabled: true }
+- { id: ui-settings-plugin-inventory, disabled: true }
+# 右栏 tab 叶子插件：各自依赖已裁剪的宿主能力（webTerminals/fs/browser），单独隐藏
+- { id: ui-sidebar-terminal, disabled: true }
+- { id: ui-sidebar-files, disabled: true }
+- { id: ui-sidebar-browser, disabled: true }
+- { id: ui-sidebar-documentpreview, disabled: true }
+- { id: ui-settings-plugins, disabled: true }

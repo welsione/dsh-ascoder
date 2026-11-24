@@ -1,0 +1,9 @@
+- insert:
+    - id: dsh-ascoder
+      name: dsh-ascoder
+      config:
+        style: auto
+        dataDir: ascoder
+        injectKnowledge: true
+        # 进入 DSH 设置页的密码（出厂默认 change-me，部署前必须改）
+        adminPassword: 'change-me'

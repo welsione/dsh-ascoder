@@ -1,0 +1,77 @@
+{
+  "name": "dsh-ascoder",
+  "version": "0.45.79",
+  "description": "Ascoder legacy for DSH: self-learning knowledge layer and role-style answer presets for code Q&A",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.1 <0.3.0-0 || >=0.3.0-rc.1 <0.4.0-0",
+    "@deepseek-ai/dsh-storage": ">=0.2.0-rc.1 <0.3.0-0 || >=0.3.0-rc.1 <0.4.0-0",
+    "@deepseek-ai/cordis": ">=4.0.0",
+    "@deepseek-ai/schemastery": ">=3.19.0",
+    "react": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/welsione/dsh-ascoder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/welsione/dsh-ascoder/issues"
+  },
+  "homepage": "https://github.com/welsione/dsh-ascoder#readme",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "ascoder",
+    "code-understanding",
+    "knowledge-base"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "main": "lib/index.mjs",
+  "types": "lib/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.mts",
+      "import": "./lib/index.mjs"
+    },
+    "./client": "./web/client.js",
+    "./client/*": "./web/*"
+  },
+  "files": [
+    "assets/logo.svg",
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "tests",
+    "web",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-storage": "0.2.2-rc.1",
+    "@deepseek-ai/schemastery": "^3.19.0",
+    "@types/node": "^24",
+    "tsdown": "^0.23.5",
+    "typescript": "^5.6.0",
+    "vitest": "^3.0.0"
+  }
+}
